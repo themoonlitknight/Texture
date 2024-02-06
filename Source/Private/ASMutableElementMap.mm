@@ -55,7 +55,13 @@ typedef NSMutableDictionary<NSString *, NSMutableDictionary<NSIndexPath *, ASCol
 
 - (void)removeSectionsAtIndexes:(NSIndexSet *)indexes
 {
-  [_sections removeObjectsAtIndexes:indexes];
+    [indexes enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx < _sections.count) {
+            [_sections removeObjectAtIndex:idx];
+        }
+    }];
+    
+  //[_sections removeObjectsAtIndexes:indexes];
 }
 
 - (void)removeSupplementaryElementsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths kind:(NSString *)kind
@@ -71,7 +77,13 @@ typedef NSMutableDictionary<NSString *, NSMutableDictionary<NSIndexPath *, ASCol
 
 - (void)removeSectionsOfItems:(NSIndexSet *)itemSections
 {
-  [_sectionsOfItems removeObjectsAtIndexes:itemSections];
+    [itemSections enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx < _sectionsOfItems.count) {
+            [_sectionsOfItems removeObjectAtIndex:idx];
+        }
+    }];
+
+  //[_sectionsOfItems removeObjectsAtIndexes:itemSections];
 }
 
 - (void)insertEmptySectionsOfItemsAtIndexes:(NSIndexSet *)sections
